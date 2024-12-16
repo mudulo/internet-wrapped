@@ -8,7 +8,7 @@ Your year in browsing, beautifully visualized. Like Spotify Wrapped, but for you
 
 
 ✨ Demo
-<video src="https://github.com/user-attachments/assets/9e19f92c-8143-4a66-9e2b-c252d746adfb" width="100%">
+<video src="https://github.com/user-attachments/assets/c7191026-0421-4f6d-b34a-98338a7334d5" width="100%">
 
 ## 🔒 Privacy First
 
