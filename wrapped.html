@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Internet Wrapped 2024</title>
+  <title>Internet Wrapped 2025</title>
   <style>
+ @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&display=swap');
+
  body {
   margin: 0;
   padding: 0;
   background: #0f172a;
   color: white;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   height: 100vh;
   overflow: hidden;
 }
 
 .story-container {
   position: relative;
-  max-width: 420px;
+  max-width: 480px;
   height: calc(100vh - 40px);
+  max-height: 95vh;
   margin: 20px auto;
   background: #1e293b;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 }
 
 .story-header {
@@ -28,8 +32,9 @@
   top: 0;
   left: 0;
   right: 0;
-  padding: 16px;
+  padding: 20px 16px 16px 16px;
   z-index: 10;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
 }
 
 .progress-bar {
@@ -39,10 +44,10 @@
 }
 
 .progress-segment {
-  height: 2px;
+  height: 3px;
   flex-grow: 1;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
   position: relative;
   overflow: hidden;
 }
@@ -54,8 +59,8 @@
   left: 0;
   height: 100%;
   width: 0%;
-  background: #fff;
-  border-radius: 2px;
+  background: #ffffff;
+  border-radius: 10px;
   transition: width 0.1s linear;
 }
 
@@ -76,9 +81,10 @@
 }
 
 .story-title h2 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: -0.01em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .title-avatar {
@@ -113,24 +119,33 @@
   padding: 0 16px;
   transform: translateY(-50%);
   z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.story-container:hover .navigation {
+  opacity: 1;
 }
 
 .nav-button {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s ease;
+  font-size: 16px;
 }
 
 .nav-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  transform: scale(1.1);
 }
 
 #story-slides {
@@ -151,57 +166,203 @@
   padding: 20px;
   text-align: center;
   box-sizing: border-box;
-  transition: opacity 0.5s ease;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.story-content.active {
+  opacity: 1;
 }
 
 .story-content-inner {
   max-width: 100%;
-  padding: 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
+  padding: 48px 32px;
+  border-radius: 24px;
+  backdrop-filter: blur(30px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   z-index: 2;
   position: relative;
-  animation: fadeIn 0.5s ease-out forwards;
+  transform: translateY(20px) scale(0.95);
+  animation: slideUpSmooth 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .story-content h3 {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 700;
   letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 0.75rem;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
 }
 
 .stat-value {
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin: 16px 0;
+  font-size: 80px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 24px 0;
   color: #ffffff;
+  position: relative;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
 }
 
 .stat-value.long-text {
-  font-size: 32px;
+  font-size: 44px;
+  font-weight: 800;
 }
 
 .stat-description {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.5;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 280px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 320px;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.welcome-year {
+  font-size: 96px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.05em !important;
+}
+
+.icon-container {
+  margin-bottom: 28px;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.icon-container svg {
+  stroke-width: 2;
+  color: white;
+  opacity: 0.9;
+}
+
+/* Slide-Specific Treatments */
+.welcome-slide {
+  transform-style: preserve-3d;
+}
+
+.welcome-title {
+  font-size: 26px !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+  opacity: 0.95;
+}
+
+.welcome-year {
+  font-size: 100px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.06em !important;
+  background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-subtitle {
+  font-size: 22px !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 12px;
+  opacity: 0.9;
+}
+
+.numbers-slide .stat-value {
+  font-size: 88px !important;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.sites-slide .site-item {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 14px 18px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 12px !important;
+}
+
+.sites-slide .site-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.sites-slide .site-domain {
+  font-size: 17px !important;
+  font-weight: 600;
+}
+
+
+.category-slide .stat-value {
+  font-size: 52px !important;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+
+/* Performance Optimizations */
+.stat-value,
+.icon-container,
+.story-content-inner {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.story-content {
+  contain: layout style paint;
 }
 
 #loading {
   height: 100%;
   display: flex;
-  font-weight: bold;
+  flex-direction: column;
+  gap: 24px;
+  font-weight: 700;
+  font-size: 22px;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 18px;
-  background: linear-gradient(135deg, #6366f1, #818cf8);
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background-size: 200% 200%;
+  animation: gradientShift 5s ease infinite;
+}
+
+#loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .confetti-container {
@@ -215,12 +376,46 @@
   z-index: 1;
 }
 
+.particles-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: floatParticle 12s infinite ease-in-out;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+.particle:nth-child(odd) {
+  width: 3px;
+  height: 3px;
+  animation-duration: 14s;
+}
+
+.particle:nth-child(3n) {
+  width: 5px;
+  height: 5px;
+  animation-duration: 10s;
+}
+
 .confetti {
   position: absolute;
   width: 10px;
   height: 10px;
   opacity: 0;
   animation: fall 3s ease-out infinite;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
 }
 
 .confetti.square {
@@ -265,12 +460,13 @@
 .intro-content, .end-overlay .overlay-content, .expired-overlay .overlay-content {
   text-align: center;
   padding: 3rem;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(30px);
   max-width: 80%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  animation: fadeInScale 0.6s ease-out;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .intro-logo {
@@ -309,10 +505,10 @@
   justify-content: center;
   gap: 12px;
   margin: 2rem 0;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .privacy-notice svg {
@@ -327,34 +523,55 @@
 }
 
 .overlay-button {
-  padding: 14px 32px;
+  padding: 16px 36px;
   border: none;
-  border-radius: 25px;
+  border-radius: 24px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
-  transition: all 0.3s ease;
-  letter-spacing: -0.01em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .overlay-button.primary {
-  background: #6366f1;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay-button.primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.overlay-button.primary:hover::before {
+  left: 100%;
 }
 
 .overlay-button.primary:hover {
-  background: #818cf8;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
 }
 
 .overlay-button.secondary {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   color: white;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .overlay-button.secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .top-sites-list {
@@ -368,8 +585,8 @@
 }
 
 .site-item {
-  margin-bottom: 24px;
-  animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  margin-bottom: 16px;
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
 .site-domain {
@@ -382,16 +599,17 @@
 .site-progress-bar {
   width: 100%;
   height: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
   overflow: hidden;
+  margin-top: 8px;
 }
 
 .site-progress-fill {
   height: 100%;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 4px;
-  transition: width 1s ease-out;
+  background: #ffffff;
+  border-radius: 10px;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
   animation: growBar 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transform-origin: left;
 }
@@ -419,19 +637,21 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  border: none;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
   color: white;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .share-button:hover {
   background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 
 .share-button svg {
@@ -505,6 +725,54 @@
   10%, 90% { opacity: 1; }
 }
 
+@keyframes slideUpSmooth {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
 @keyframes fall {
   0% {
     transform: translateY(-100%) rotate(0deg);
@@ -569,7 +837,7 @@
     <div class="intro-content">
       <div class="intro-logo">
         <img src="icons/ic128.png" alt="Firefox Wrapped Logo" class="wrapped-logo">
-        <h1>Internet Wrapped 2024</h1>
+        <h1>Internet Wrapped 2025</h1>
       </div>
       <p>Ready to see your year in browsing?</p>
       <div class="privacy-notice">
@@ -603,7 +871,7 @@
         <div class="title-avatar">
           <img src="icons/ic128.png" class="avatar-image"/>
         </div>
-        <h2>Internet Wrapped 2024</h2>
+        <h2>Internet Wrapped 2025</h2>
       </div>
     </div>
     
@@ -654,9 +922,9 @@
 
   <div class="expired-overlay">
     <div class="overlay-content">
-      <h2>Internet Wrapped 2024 has ended</h2>
-      <p>This version was designed to give you fun insights from your 2024 browsing data.</p>
-      <p>Check back soon for Internet Wrapped 2025!</p>
+      <h2>Internet Wrapped 2025 has ended</h2>
+      <p>This version was designed to give you fun insights from your 2025 browsing data.</p>
+      <p>Check back soon for Internet Wrapped 2026!</p>
       <div class="overlay-buttons">
         <button class="overlay-button secondary" id="closeExpiredBtn">Close</button>
       </div>

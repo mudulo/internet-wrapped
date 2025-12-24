@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internet Wrapped 2025 - See Where You Actually Spent Your Time</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #fafafa;
+      color: #111;
+      line-height: 1.5;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 60px;
+      border-bottom: 2px solid #111;
+      padding-bottom: 40px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 10vw, 120px);
+      font-weight: 900;
+      line-height: 0.9;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .highlight {
+      background: #6366f1;
+      color: #fff;
+      padding: 0 12px;
+      display: inline-block;
+    }
+
+    .subtitle {
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 400;
+      color: #666;
+      max-width: 700px;
+      margin-top: 20px;
+    }
+
+    /* Two column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 60px;
+      margin: 60px 0;
+    }
+
+    .main-content h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .main-content p {
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    /* Sidebar stats */
+    .sidebar {
+      background: #111;
+      color: #fff;
+      padding: 32px;
+      position: sticky;
+      top: 20px;
+      height: fit-content;
+    }
+
+    .sidebar h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+      color: #999;
+    }
+
+    .stat-row {
+      border-top: 1px solid #333;
+      padding: 16px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #999;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 900;
+      color: #6366f1;
+    }
+
+    /* Feature list */
+    .feature-list {
+      list-style: none;
+      margin: 40px 0;
+    }
+
+    .feature-list li {
+      padding: 20px 0;
+      border-bottom: 1px solid #ddd;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: padding-left 0.2s ease;
+    }
+
+    .feature-list li:hover {
+      padding-left: 20px;
+      background: #f5f5f5;
+    }
+
+    .feature-number {
+      font-size: 14px;
+      color: #999;
+      font-weight: 700;
+      width: 40px;
+    }
+
+    /* Screenshots section */
+    .screenshots {
+      margin: 80px 0;
+      padding: 0;
+    }
+
+    .screenshots h2 {
+      font-size: 64px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+
+    .screenshots-intro {
+      font-size: 20px;
+      color: #666;
+      margin-bottom: 60px;
+      max-width: 600px;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .demo-card {
+      border: 3px solid #111;
+      padding: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+
+    .demo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 12px 12px 0 #6366f1;
+    }
+
+    .demo-preview {
+      aspect-ratio: 9/16;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo-preview::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .demo-dots {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      gap: 4px;
+    }
+
+    .demo-dot {
+      height: 3px;
+      flex: 1;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 10px;
+    }
+
+    .demo-dot.active {
+      background: #fff;
+    }
+
+    .demo-number {
+      font-size: 120px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .demo-label {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.9;
+    }
+
+    .demo-info {
+      padding: 24px;
+      background: #fff;
+    }
+
+    .demo-info h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .demo-info p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* Privacy section */
+    .privacy-box {
+      background: #10b981;
+      color: #fff;
+      padding: 60px;
+      margin: 80px 0;
+      position: relative;
+    }
+
+    .privacy-box h2 {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 24px;
+    }
+
+    .privacy-box p {
+      font-size: 20px;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    .privacy-label {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #000;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    /* Download section */
+    .download-section {
+      margin: 80px 0;
+      padding: 80px 0;
+      border-top: 4px solid #111;
+      border-bottom: 4px solid #111;
+    }
+
+    .download-section h2 {
+      font-size: 64px;
+      font-weight: 900;
+      margin-bottom: 40px;
+      line-height: 1;
+    }
+
+    .browser-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .browser-btn {
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 24px 40px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+      border: 3px solid #111;
+    }
+
+    .browser-btn:hover {
+      background: #fff;
+      color: #111;
+    }
+
+    .browser-btn.primary {
+      background: #6366f1;
+      border-color: #6366f1;
+    }
+
+    .browser-btn.primary:hover {
+      background: #fff;
+      color: #6366f1;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      font-size: 14px;
+      color: #666;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer a {
+      color: #111;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Marquee */
+    .marquee {
+      background: #6366f1;
+      color: #fff;
+      padding: 20px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 80px 0;
+    }
+
+    .marquee-content {
+      display: inline-block;
+      animation: scroll 20s linear infinite;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Quote */
+    .quote {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 80px 0;
+      padding-left: 40px;
+      border-left: 8px solid #6366f1;
+      max-width: 800px;
+    }
+
+    .quote-author {
+      font-size: 18px;
+      color: #666;
+      margin-top: 20px;
+      font-weight: 400;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .download-section h2 {
+        font-size: 40px;
+      }
+
+      .browser-buttons {
+        flex-direction: column;
+      }
+
+      .browser-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .quote {
+        font-size: 24px;
+        padding-left: 20px;
+        border-left-width: 4px;
+      }
+
+      .privacy-box {
+        padding: 40px 20px;
+      }
+
+      .privacy-label {
+        position: static;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+
+      .screenshots {
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Main content -->
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>
+        <span class="highlight">Internet</span><br>
+        Wrapped<br>
+        2025
+      </h1>
+      <div class="subtitle">
+        Finally see where all those hours went. Your browser history, visualized.
+      </div>
+    </header>
+
+    <!-- Two column layout -->
+    <div class="two-col">
+      <div class="main-content">
+        <h2>You spent an entire year online. Here's what happened.</h2>
+
+        <p>
+          Every click. Every scroll. Every late-night Wikipedia rabbit hole. It's all in your browser history,
+          and Internet Wrapped turns it into something you can actually look at.
+        </p>
+
+        <p>
+          No judgement. No tracking. Just a clean, honest look at where you actually spent your time online this year.
+          Story-style slides. Real insights. Zero BS.
+        </p>
+
+        <ul class="feature-list">
+          <li>
+            <span><span class="feature-number">01</span> Total visits & daily averages</span>
+          </li>
+          <li>
+            <span><span class="feature-number">02</span> Top sites you actually used</span>
+          </li>
+          <li>
+            <span><span class="feature-number">03</span> Peak browsing hours (3am?)</span>
+          </li>
+          <li>
+            <span><span class="feature-number">04</span> Day vs night patterns</span>
+          </li>
+          <li>
+            <span><span class="feature-number">05</span> Weekday vs weekend habits</span>
+          </li>
+          <li>
+            <span><span class="feature-number">06</span> Categories (AI, social, etc.)</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <h3>By the numbers</h3>
+        <div class="stat-row">
+          <span class="stat-label">Categories</span>
+          <span class="stat-value">14+</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Slides</span>
+          <span class="stat-value">10</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Data sent</span>
+          <span class="stat-value">0KB</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Time to run</span>
+          <span class="stat-value">~3s</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="quote">
+      "I had no idea I visited YouTube 2,847 times. That's... actually concerning."
+      <div class="quote-author">— Beta tester, probably should go outside more</div>
+    </div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="marquee">
+    <div class="marquee-content">
+      🌐 SWIPE THROUGH YOUR YEAR 📊 SEE YOUR STATS ⏰ PEAK HOURS REVEALED 🔒 STAYS PRIVATE 📁 AUTO-CATEGORIZED 🌐 SWIPE THROUGH YOUR YEAR 📊 SEE YOUR STATS ⏰ PEAK HOURS REVEALED 🔒 STAYS PRIVATE 📁 AUTO-CATEGORIZED&nbsp;
+    </div>
+  </div>
+
+  <!-- Screenshots -->
+  <div class="container">
+    <section class="screenshots">
+      <h2>10 slides.<br>All your data.</h2>
+      <p class="screenshots-intro">
+        Swipe through story-style slides. Tap left/right. Each one reveals something about your year online.
+      </p>
+
+      <div class="demo-grid">
+        <div class="demo-card">
+          <div class="demo-preview" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+            <div class="demo-dots">
+              <div class="demo-dot active"></div>
+              <div class="demo-dot"></div>
+              <div class="demo-dot"></div>
+              <div class="demo-dot"></div>
+              <div class="demo-dot"></div>
+            </div>
+            <div class="demo-number">2025</div>
+            <div class="demo-label">Your Year</div>
+          </div>
+          <div class="demo-info">
+            <h3>Welcome slide</h3>
+            <p>Sets the mood. Gets you hyped to see your stats.</p>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-preview" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
+            <div class="demo-dots">
+              <div class="demo-dot active"></div>
+              <div class="demo-dot active"></div>
+              <div class="demo-dot"></div>
+              <div class="demo-dot"></div>
+              <div class="demo-dot"></div>
+            </div>
+            <div class="demo-number">12,847</div>
+            <div class="demo-label">Total Visits</div>
+          </div>
+          <div class="demo-info">
+            <h3>Big numbers</h3>
+            <p>How many pages you actually visited. Prepare to be shocked.</p>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-preview" style="background: linear-gradient(135deg, #ec4899, #f97316);">
+            <div class="demo-dots">
+              <div class="demo-dot active"></div>
+              <div class="demo-dot active"></div>
+              <div class="demo-dot active"></div>
+              <div class="demo-dot"></div>
+              <div class="demo-dot"></div>
+            </div>
+            <div class="demo-number">3AM</div>
+            <div class="demo-label">Peak Hour</div>
+          </div>
+          <div class="demo-info">
+            <h3>Time patterns</h3>
+            <p>When you're most active. Day owl or night owl?</p>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-preview" style="background: linear-gradient(135deg, #3b82f6, #6366f1);">
+            <div class="demo-dots">
+              <div class="demo-dot active"></div>
+              <div class="demo-dot active"></div>
+              <div class="demo-dot active"></div>
+              <div class="demo-dot active"></div>
+              <div class="demo-dot"></div>
+            </div>
+            <div class="demo-number" style="font-size: 72px;">AI</div>
+            <div class="demo-label">Top Category</div>
+          </div>
+          <div class="demo-info">
+            <h3>Categories</h3>
+            <p>Social? Shopping? AI? See where you actually spend time.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div class="container">
+    <!-- Privacy -->
+    <div class="privacy-box">
+      <div class="privacy-label">GUARANTEED</div>
+      <h2>Your data stays on your computer.</h2>
+      <p>
+        Everything runs locally in your browser. No servers. No analytics. No tracking.
+        We literally can't see your data even if we wanted to. That's the point.
+      </p>
+    </div>
+
+    <!-- Download -->
+    <div class="download-section">
+      <h2>Get it now</h2>
+      <p style="font-size: 20px; margin-bottom: 40px; color: #666;">
+        Available for Chrome, Firefox, Edge, Brave, and basically any browser that isn't Safari.
+      </p>
+      <div class="browser-buttons">
+        <a href="https://chromewebstore.google.com/detail/internet-wrapped/paehggfojmehbjepfildefeolnlgbidn" class="browser-btn primary">Download for Chrome</a>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/internet-wrapped/" class="browser-btn primary">Download for Firefox</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div>© 2025 Internet Wrapped</div>
+      <div>
+        <a href="https://github.com/mudulo/internet-wrapped">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Duplicate marquee content for seamless loop
+    const marquee = document.querySelector('.marquee-content');
+    marquee.innerHTML = marquee.innerHTML + marquee.innerHTML;
+  </script>
+</body>
+</html>

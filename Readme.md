@@ -1,4 +1,4 @@
-# Internet Wrapped 2024 🌐
+# Internet Wrapped 2025 🌐
 
 Your year in browsing, beautifully visualized. Like Spotify Wrapped, but for your internet activity.
 

@@ -6,8 +6,8 @@ function createIcon(iconSvg) {
   
   // SVG element and its attributes
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '48');
-  svg.setAttribute('height', '48');
+  svg.setAttribute('width', '64');
+  svg.setAttribute('height', '64');
   svg.setAttribute('viewBox', '0 0 24 24');
   svg.setAttribute('fill', 'none');
   svg.setAttribute('stroke', 'currentColor');
@@ -37,7 +37,7 @@ function createIcon(iconSvg) {
 
 function checkExpiration() {
     const currentDate = new Date();
-    const expirationDate = new Date('2025-01-01T00:00:00');
+    const expirationDate = new Date('2026-01-01T00:00:00');
     
     if (currentDate >= expirationDate) {
       // Show expiration overlay
@@ -110,7 +110,7 @@ function checkExpiration() {
       e.preventDefault();
       e.stopPropagation();
       
-      const tweetText = encodeURIComponent("Just wrapped up my 2024 Internet journey! Check out Internet Wrapped to discover your own online story! #InternetWrapped");
+      const tweetText = encodeURIComponent("Just wrapped up my 2025 Internet journey! Check out Internet Wrapped to discover your own online story! #InternetWrapped");
       const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(extensionUrl)}`;
       window.open(tweetUrl, '_blank');
     });
@@ -186,18 +186,18 @@ function createConfetti() {
   const shapes = ['square', 'triangle', 'circle'];
   const container = document.createElement('div');
   container.className = 'confetti-container';
-  
-  // Create 50 confetti pieces
-  for (let i = 0; i < 50; i++) {
+
+  // Create 30 confetti pieces
+  for (let i = 0; i < 30; i++) {
     const confetti = document.createElement('div');
     confetti.className = `confetti ${shapes[Math.floor(Math.random() * shapes.length)]}`;
     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
     confetti.style.left = `${Math.random() * 100}%`;
-    confetti.style.animationDelay = `${Math.random() * 3}s`;
-    confetti.style.animationDuration = `${2 + Math.random() * 2}s`;
+    confetti.style.animationDelay = `${Math.random() * 2}s`;
+    confetti.style.animationDuration = `${2.5 + Math.random() * 1.5}s`;
     container.appendChild(confetti);
   }
-  
+
   return container;
 }
 
@@ -283,14 +283,16 @@ function processStats(stats) {
 
 function createStorySlide(content, index) {
   const backgrounds = [
-    'linear-gradient(135deg, #6366f1, #818cf8)',
-    'linear-gradient(135deg, #6366f1, #818cf8)',
-    'linear-gradient(135deg, #6366f1, #818cf8)',
-    'linear-gradient(135deg, #6366f1, #818cf8)',
-    'linear-gradient(135deg, #6366f1, #818cf8)',
-    'linear-gradient(135deg, #6366f1, #818cf8)',
-    'linear-gradient(135deg, #6366f1, #818cf8)',
-    'linear-gradient(135deg, #6366f1, #818cf8)',
+    'linear-gradient(135deg, #7c3aed, #6366f1)',
+    'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    'linear-gradient(135deg, #5b21b6, #7c3aed)',
+    'linear-gradient(135deg, #a855f7, #6366f1)',
+    'linear-gradient(135deg, #4f46e5, #a78bfa)',
+    'linear-gradient(135deg, #8b5cf6, #a855f7)',
+    'linear-gradient(135deg, #4338ca, #9333ea)',
+    'linear-gradient(135deg, #7c3aed, #6366f1)',
+    'linear-gradient(135deg, #9333ea, #c4b5fd)',
+    'linear-gradient(135deg, #6d28d9, #8b5cf6)',
   ];
 
   const storyContent = document.createElement('div');
@@ -392,18 +394,26 @@ function displayStats(stats) {
         h3.className = 'welcome-title';
         statValue.className = 'stat-value welcome-year';
         statDesc.className = 'stat-description welcome-subtitle';
-        
+
         // Adding confetti anim
-        const confetti = createConfetti();
-        storyContent.appendChild(confetti);
-        
+        const confetti0 = createConfetti();
+        storyContent.appendChild(confetti0);
+
         setTimeout(() => {
-          confetti.remove();
+          confetti0.remove();
         }, 5000);
         break;
         
       case 1: // Numbers slide
         innerContent.classList.add('numbers-slide');
+
+        // Adding confetti for big numbers
+        const confetti1 = createConfetti();
+        storyContent.appendChild(confetti1);
+
+        setTimeout(() => {
+          confetti1.remove();
+        }, 5000);
         break;
         
       case 2: // Most active day
@@ -424,6 +434,14 @@ function displayStats(stats) {
         
       case 9: // Categories
         innerContent.classList.add('category-slide');
+
+        // Adding confetti for category celebration
+        const confetti9 = createConfetti();
+        storyContent.appendChild(confetti9);
+
+        setTimeout(() => {
+          confetti9.remove();
+        }, 5000);
         break;
     }
   
@@ -431,7 +449,7 @@ function displayStats(stats) {
     switch(index) {
       case 0:
         h3.textContent = 'Welcome to Your';
-        statValue.textContent = '2024';
+        statValue.textContent = '2025';
         statDesc.textContent = 'Internet Wrapped';
         break;
   
@@ -544,7 +562,7 @@ function displayStats(stats) {
       const particle = document.createElement('div');
       particle.className = 'particle';
       particle.style.left = `${Math.random() * 100}%`;
-      particle.style.animationDelay = `${Math.random() * 5}s`;
+      particle.style.animationDelay = `${Math.random() * 12}s`;
       particles.appendChild(particle);
     }
     storyContent.appendChild(particles);
@@ -588,10 +606,9 @@ function displayStats(stats) {
   
   // Initializing first slide
   allSlides[0].style.display = 'flex';
-  allSlides[0].style.opacity = 1;
+  allSlides[0].classList.add('active');
   for(let i = 1; i < allSlides.length; i++) {
     allSlides[i].style.display = 'none';
-    allSlides[i].style.opacity = 0;
   }
 
   function showEndOverlay() {
@@ -607,33 +624,33 @@ function displayStats(stats) {
 
   function restartPresentation() {
     hideEndOverlay();
-    
+
     // Clearing any existing timer
     if (timer) clearInterval(timer);
-    
+
     currentSlide = 0;
-    
+
     // Resetting all slides
     for(let i = 0; i < allSlides.length; i++) {
       allSlides[i].style.display = 'none';
-      allSlides[i].style.opacity = 0;
+      allSlides[i].classList.remove('active');
     }
-    
+
     // Resetting progress segments
     progressSegments.forEach(segment => {
       segment.classList.remove('active', 'completed');
     });
-  
+
     // Showing first slide
     allSlides[0].style.display = 'flex';
-    allSlides[0].style.opacity = 1;
-    
+    allSlides[0].classList.add('active');
+
     // Restarting progress animation with a slight delay to ensure clean start
     setTimeout(() => {
       // Forcing reflow for clean animation
       void progressSegments[0].offsetWidth;
       progressSegments[0].classList.add('active');
-      
+
       // Starting the auto-scroll timer fresh
       timer = setInterval(() => {
         if(currentSlide < allSlides.length - 1) {
@@ -649,7 +666,7 @@ function displayStats(stats) {
   function showSlide(index) {
     if(index >= 0 && index < allSlides.length) {
         if (timer) clearInterval(timer);
-        
+
         // Updating progress segments
         progressSegments.forEach((segment, i) => {
             if (i < index) {
@@ -657,7 +674,7 @@ function displayStats(stats) {
                 segment.classList.add('completed');
             } else if (i === index) {
                 segment.classList.remove('active', 'completed');
-                void segment.offsetWidth; 
+                void segment.offsetWidth;
                 segment.classList.add('active');
             } else {
                 segment.classList.remove('active', 'completed');
@@ -666,25 +683,25 @@ function displayStats(stats) {
 
         const currentElement = allSlides[currentSlide];
         const nextElement = allSlides[index];
-        
+
+        // Remove active class from current
+        currentElement.classList.remove('active');
+
         // Setting initial state for next element
         nextElement.style.display = 'flex';
-        
+
         // Use requestAnimationFrame for smoother transition
         requestAnimationFrame(() => {
-            // Adding transition class to both elements
-            currentElement.style.transition = 'opacity 0.3s ease-in-out';
-            nextElement.style.transition = 'opacity 0.3s ease-in-out';
-            
-            // Fade out current, fade in next
-            currentElement.style.opacity = '0';
-            nextElement.style.opacity = '1';
-            
-            // After transition completes
-            setTimeout(() => {
-                currentElement.style.display = 'none';
-                currentSlide = index;
-            }, 300); 
+            requestAnimationFrame(() => {
+                // Add active class to next element
+                nextElement.classList.add('active');
+
+                // After transition completes
+                setTimeout(() => {
+                    currentElement.style.display = 'none';
+                    currentSlide = index;
+                }, 400);
+            });
         });
 
         startTimer();
@@ -713,6 +730,29 @@ function displayStats(stats) {
       showEndOverlay();
     } else {
       showSlide(currentSlide + 1);
+    }
+  });
+
+  // Add tap zones for Instagram-style navigation
+  const storyContainer = document.querySelector('.story-container');
+  storyContainer.addEventListener('click', (e) => {
+    const rect = storyContainer.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const containerWidth = rect.width;
+
+    // If click is in left third, go back
+    if (clickX < containerWidth / 3) {
+      if (currentSlide > 0) {
+        showSlide(currentSlide - 1);
+      }
+    }
+    // If click is in right two-thirds, go forward
+    else if (clickX > containerWidth / 3) {
+      if (currentSlide === allSlides.length - 1) {
+        showEndOverlay();
+      } else {
+        showSlide(currentSlide + 1);
+      }
     }
   });
   // Keyboard navigation

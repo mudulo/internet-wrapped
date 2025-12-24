@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Internet Wrapped",
-    "version": "2.1",
-    "description": "Generate fun, summarized highlights from your browsing history in 2024!",
+    "version": "2.2",
+    "description": "Generate fun, summarized highlights from your browsing history in 2025!",
     "icons": {
       "48": "icons/ic48.png",
       "96": "icons/ic96.png"
